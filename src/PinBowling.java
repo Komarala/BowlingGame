@@ -7,6 +7,8 @@ import java.util.Scanner;
 //Class for calculating Bowling Game score
 public class PinBowling{
 
+    public static int strike = 10;
+
     private List<Integer> TotalRolls = new ArrayList<Integer>();
 
     public void roll(List<Integer> rolls){
@@ -35,12 +37,12 @@ public class PinBowling{
     
     //Check if Strike
     public boolean isStrike(int rollIndex) {
-        return TotalRolls.get(rollIndex) == 10;
+        return TotalRolls.get(rollIndex) == strike;
     }
 
     //Check if Spare
     public boolean isSpare(int rollIndex) {
-        return TotalRolls.get(rollIndex) + TotalRolls.get(rollIndex+1) == 10;
+        return TotalRolls.get(rollIndex) + TotalRolls.get(rollIndex+1) == strike;
     }
 
     //Add Strike bonus
@@ -58,43 +60,43 @@ public class PinBowling{
         return TotalRolls.get(rollIndex) + TotalRolls.get(rollIndex + 1);
     }
 
-        //Main Source Code
+    //Main Source Code
     public static void main(String[] args) {
         PinBowling game = new PinBowling();
         int rollsAllowed = 2;
         List<Integer> rolls = new ArrayList<>();
 
         try (Scanner sc = new Scanner(System.in)) {
-            for (int frame = 1; frame <= 10; frame++) {
+            for (int frame = 1; frame <= strike; frame++) {
                 System.out.println("Frame " + (frame));
 
-                for (int i = 1; i < rollsAllowed; i++){
-                    System.out.print("Enter pins knocked down of Frame " + frame + " in roll " + (i)+" : ");
+                for (int numOfRolls = 1; numOfRolls < rollsAllowed; numOfRolls++){
+                    System.out.print("Enter pins knocked down of Frame " + frame + " in roll " + (numOfRolls)+" : ");
                     int FirstRoll = sc.nextInt();
                     rolls.add(FirstRoll);
-                    if (FirstRoll==10){
+                    if (FirstRoll==strike){
                         System.out.println("Strike!");
                     }
                     else {
-                        System.out.print("Enter pins knocked down of Frame " + frame + " in roll " + (i+1)+" : ");
+                        System.out.print("Enter pins knocked down of Frame " + frame + " in roll " + (numOfRolls+1)+" : ");
                         int SecondRoll = sc.nextInt();
                         rolls.add(SecondRoll);
-                        if(FirstRoll + SecondRoll == 10){  
+                        if(FirstRoll + SecondRoll == strike){  
                         System.out.println("Spare!");
                         if (frame==10){
                             System.out.println("You earned a bonus roll!");
-                            System.out.print("Enter pins knocked down of Frame " + frame + " in roll " + (i+2)+" : ");
+                            System.out.print("Enter pins knocked down of Frame " + frame + " in roll " + (numOfRolls+2)+" : ");
                             int ThirdRoll = sc.nextInt();
                             rolls.add(ThirdRoll);
                         }
                         }
                     }
-                    if (frame==10 && FirstRoll==10){
+                    if (frame==10 && FirstRoll==strike){
                         System.out.println("You earned a bonus roll!");
-                        System.out.print("Enter pins knocked down of Frame " + frame + " in roll " + (i+1)+" : ");
+                        System.out.print("Enter pins knocked down of Frame " + frame + " in roll " + (numOfRolls+1)+" : ");
                         int SecondRoll = sc.nextInt();
                         rolls.add(SecondRoll);
-                        System.out.print("Enter pins knocked down of Frame " + frame + " in roll " + (i+2)+" : ");
+                        System.out.print("Enter pins knocked down of Frame " + frame + " in roll " + (numOfRolls+2)+" : ");
                         int ThirdRoll = sc.nextInt();
                         rolls.add(ThirdRoll);
                         }
