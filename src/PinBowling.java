@@ -6,59 +6,55 @@ import java.util.Scanner;
 
 //Class for calculating Bowling Game score
 public class PinBowling{
-    //List<Integer> rolls = new ArrayList<>();
 
-    //public void roll(int pins) {
-    //    rolls.add(pins);
-    //}
-    public int calculateScore(List<Integer>TotalRolls) {
+    private List<Integer> TotalRolls = new ArrayList<Integer>();
+
+    public void roll(List<Integer> rolls){
+        TotalRolls = rolls;
+    }
+    
+    public int calculateScore() {
         int score = 0;
         int rollIndex = 0;
-        System.out.println(TotalRolls);
 
         for (int frame = 1; frame <= 10; frame++) {
-            if (isStrike(rollIndex, TotalRolls)) {
-                score += 10 + strikeBonus(rollIndex, TotalRolls);
+            if (isStrike(rollIndex)) {
+                score += 10 + strikeBonus(rollIndex);
                 rollIndex++;
-            } else if (isSpare(rollIndex,TotalRolls)) {
-                score += 10 + spareBonus(rollIndex, TotalRolls);
+            } else if (isSpare(rollIndex)) {
+                score += 10 + spareBonus(rollIndex);
                 rollIndex += 2;
             } else {
-                score += frameScore(rollIndex, TotalRolls);
+                score += frameScore(rollIndex);
                 rollIndex += 2;
             }
+            System.out.println("Frame "+frame+" Score "+score);
             }
-            System.out.println("FrameScore "+score);
         return score;
     }
     
-    //Returns Scored points of each roll in list
-    public List<Integer> Board(List<Integer>TotalRolls){
-        return TotalRolls;
-    }
-
     //Check if Strike
-    public boolean isStrike(int rollIndex, List<Integer>TotalRolls) {
+    public boolean isStrike(int rollIndex) {
         return TotalRolls.get(rollIndex) == 10;
     }
 
     //Check if Spare
-    public boolean isSpare(int rollIndex,List<Integer>TotalRolls) {
+    public boolean isSpare(int rollIndex) {
         return TotalRolls.get(rollIndex) + TotalRolls.get(rollIndex+1) == 10;
     }
 
     //Add Strike bonus
-    private int strikeBonus(int rollIndex,List<Integer>TotalRolls) {
+    private int strikeBonus(int rollIndex) {
         return TotalRolls.get(rollIndex + 1) + TotalRolls.get(rollIndex + 2); 
     }
 
     //Add Spare bonus
-    private int spareBonus(int rollIndex,List<Integer>TotalRolls) {
+    private int spareBonus(int rollIndex) {
         return TotalRolls.get(rollIndex + 2);
     }
 
     //Total score calculator
-    private int frameScore(int rollIndex,List<Integer>TotalRolls) {
+    private int frameScore(int rollIndex) {
         return TotalRolls.get(rollIndex) + TotalRolls.get(rollIndex + 1);
     }
 
@@ -86,6 +82,7 @@ public class PinBowling{
                         if(FirstRoll + SecondRoll == 10){  
                         System.out.println("Spare!");
                         if (frame==10){
+                            System.out.println("You earned a bonus roll!");
                             System.out.print("Enter pins knocked down of Frame " + frame + " in roll " + (i+2)+" : ");
                             int ThirdRoll = sc.nextInt();
                             rolls.add(ThirdRoll);
@@ -93,6 +90,7 @@ public class PinBowling{
                         }
                     }
                     if (frame==10 && FirstRoll==10){
+                        System.out.println("You earned a bonus roll!");
                         System.out.print("Enter pins knocked down of Frame " + frame + " in roll " + (i+1)+" : ");
                         int SecondRoll = sc.nextInt();
                         rolls.add(SecondRoll);
@@ -103,11 +101,9 @@ public class PinBowling{
                 }
             }
         }
-        
-        System.out.println(rolls);
-        int score = game.calculateScore(rolls);
-        List <Integer> Board = game.Board(rolls);
-        System.out.println("Score Board = " + Board);
+        game.roll(rolls);
+        int score = game.calculateScore();
+        System.out.println("Score Board = " + rolls);
         System.out.println("Player's score: " + score);
     }
 }
