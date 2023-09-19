@@ -46,17 +46,17 @@ public class PinBowling{
     }
 
     //Add Strike bonus
-    private int strikeBonus(int rollIndex) {
+    public int strikeBonus(int rollIndex) {
         return TotalRolls.get(rollIndex + 1) + TotalRolls.get(rollIndex + 2); 
     }
 
     //Add Spare bonus
-    private int spareBonus(int rollIndex) {
+    public int spareBonus(int rollIndex) {
         return TotalRolls.get(rollIndex + 2);
     }
 
     //Total score calculator
-    private int frameScore(int rollIndex) {
+    public int frameScore(int rollIndex) {
         return TotalRolls.get(rollIndex) + TotalRolls.get(rollIndex + 1);
     }
 
